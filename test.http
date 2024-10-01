@@ -1,0 +1,23 @@
+@host = http://localhost:3000
+
+GET {{host}}/api/devices
+
+###
+GET {{host}}/api/users
+
+
+###
+POST {{host}}/api/users/register
+Content-Type: application/json
+
+{
+    "email":"julien@gmail.com",
+    "password":"?10Julien10?"
+}
+
+
+###
+GET {{host}}/api/users/66fbfcc04f61f3f496cc7a38
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1bGllbkBnbWFpbC5jb20iLCJpYXQiOjE3Mjc3OTAyNzIsImV4cCI6MTcyNzc5Mzg3Mn0.PclH8I2kB4YDLeuuvBgkwxcmm9VrZOzwOBpHEvoZ5yE
+
+

@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "commonjs",
+      "outDir": "./dist",
+      "rootDir": "./",
+      "strict": true,
+      "esModuleInterop": true,
+      "baseUrl": "./app",
+      "paths": {
+        "@middlewares/*": ["middlewares/*"],
+        "@controllers/*": ["controllers/*"],
+        "@models/*": ["models/*"],
+        "@services/*": ["services/*"],
+        "@routes/*": ["routes/*"],
+        "@interfaces/*": ["interfaces/*"],
+        "@database/*": ["database/*"]
+      }
+    },
+    "include": ["app/**/*", "server.ts"],
+    "exclude": ["node_modules", "docs", "seed", "compose.yaml", "script.sh"]
+}

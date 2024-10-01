@@ -1,0 +1,107 @@
+= Création d'une base de données initiale
+
+== Introduction
+
+MongoDB ne crée réellement une base de données que lorsqu'un premier document est inséré dans cette base. 
+
+=== ...
+
+Si aucune donnée n'a été ajoutée dans la base de données spécifiée (it_creator), celle-ci n'apparaîtra pas dans Mongo Express ...
+
+=== ...
+
+ou dans la sortie de certaines commandes MongoDB.
+
+=== Solutions
+
+Ajouter un premier document dans la base de données : 
+
+=== ...
+
+Pour que la base de données apparaisse, il vous suffit d'insérer un premier document ...
+
+=== ...
+
+dans la base de données via Mongo Shell, Mongo Express, ou une application client.
+
+
+=== ...
+
+Vous pouvez utiliser Mongo Express pour ajouter un document à cette base, ou bien utiliser un script MongoDB. 
+
+=== ...
+
+Exemple pour ajouter un document en utilisant mongo directement dans le conteneur MongoDB :
+
+=== ...
+
+D'abord, accédez au shell MongoDB dans le conteneur :
+[source, bash]
+----
+docker exec -it mongodb mongo -u root -p example
+----
+
+=== ...
+
+Ensuite, sélectionnez la base de données et insérez un document :
+
+[source, bash]
+----
+use it_creator
+db.my_collection.insertOne({ name: "premier document" })
+----
+
+=== ...
+
+Cela va créer la base de données et une collection my_collection avec un document.
+
+=== ...
+
+Vérifier avec Mongo Express : Après avoir inséré un document, vérifiez Mongo Express à http://localhost:8081 pour voir si la base de données apparaît.
+
+
+
+=== Automatiser l'insertion de données (optionnel) : 
+
+Si vous souhaitez que la base de données soit créée automatiquement avec des données ...
+
+=== ...
+
+dès le démarrage de MongoDB, vous pouvez créer un script d'initialisation. Voici comment :
+
+=== ...
+
+Créez un fichier de script init-mongo.js dans le même dossier que votre fichier docker-compose.yml :
+
+=== ...
+
+[source, javascript]
+----
+db = db.getSiblingDB('it_creator');
+db.my_collection.insertOne({ name: "premier document" });
+----
+
+=== ...
+
+Ajoutez ce script au volume de MongoDB dans votre docker-compose.yml :
+[source, yaml]
+----
+mongodb:
+  image: mongo:latest
+  container_name: mongodb
+  restart: always
+  environment:
+    MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+    MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+  ports:
+    - 27017:27017
+  volumes:
+    - mongo-data:/data/db
+    - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+----
+
+=== ...
+
+Ce script sera exécuté automatiquement au démarrage de MongoDB et créera la base de données et la collection.
+

@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "ES6",
+      "outDir": "./dist",
+      "rootDir": "./",
+      "strict": true,
+      "esModuleInterop": true,
+      "baseUrl": "./src/ts",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "paths": {
+        "@decorators/*": ["decorators/*"],
+        "@core/*": ["core/*"],
+        "@views/*": ["views/*"],
+        "@custom-types/*": ["custom-types/*"],
+        "@layout/*": ["layout/*"],
+        "@components/*": ["components/*"],
+        "@containers/*": ["controllers/*"],
+        "@models/*": ["models/*"],
+        "@services/*": ["services/*"],
+        "@interfaces/*": ["interfaces/*"]
+      }
+    },
+    "include": ["src/**/*", "main.ts"],
+    "exclude": ["node_modules"]
+}
